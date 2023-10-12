@@ -9,11 +9,13 @@
         *{
             padding: 0%;
             margin: 0%;
+        
         }
        body{
         display: flex;
         align-items: center;
         flex-direction: column;
+        background-color: black;
        }
         .task{
             display: flex;
@@ -26,6 +28,10 @@
             margin-top: 20px;
             
             font-size: 20px;
+        }
+        #task{
+            opacity: 0;
+            margin-top: 0%;
         }
         .task #check{
             width: 20px;
@@ -68,6 +74,7 @@
             font-weight: 700;
             margin-top: 50px;
             margin-left: 40px;
+            color: white;
         }
         #out{
             align-self: center;
@@ -107,6 +114,7 @@
             border-radius: 3px;
             font-size: 10px;
             margin-left: 20px;
+            float: right;
 
         }
         :hover.btn{
@@ -116,6 +124,7 @@
             margin-top: 50px;
             font-size: large;
             font-weight: 700;
+            color: aliceblue;
 
         }
         #Task_name{
@@ -151,9 +160,9 @@
     <div id="task_container">
         <span class="task" id="task">
             <input id="check" type="checkbox">
-            <output id="out"> to buy</output>
+            <output id="out"> </output>
             <output id="due">
-                22/03/2023
+                
 
             </output>
             <button class="btn" id="delete" onclick="click">
@@ -168,9 +177,16 @@
         <p>Enter the Details</p>
         <input  id="Task_name" type="text" placeholder="Enter Name of Task">
         <input id="Due_date" type="date">
-        <button id="ok">
+        
+        <div>
+            <button id="ok">
             OK
-        </button>
+            </button>
+            <button id="cancle">
+                cancle
+
+            </button>
+        </div>
 
 
     </div>
@@ -181,8 +197,9 @@
      var a = $("#task")
      var task = a.children()
      var name =$("#Due_date").val()
+     var ent =0
      
-    var counter =0
+    var counter =0 //when the create button is clicked ++
     var id_task
     var id_delete
     var entry = $("#entry")
@@ -190,10 +207,11 @@
     
     
      
+     
 
 
      $("#create").click(function(){
-        var t = a.clone()
+        var t = a.clone(true)
         counter+=1
         id_task ="task"+counter
         id_delete ="delete"+counter
@@ -213,22 +231,42 @@
      $("#ok").click(function(){
          
          var date =$("#Due_date").val()
+         var valid = $("#Task_name").val()
+         
+         
         
          $("#task"+counter).children("#out").text($("#Task_name").val())
          $("#task"+counter).children("#due").text(date)
-         console.log(date)
+         console.log(valid)
          console.log($("#Task_name").val())
+         
+         
+            
+            if(valid == "" & date == ""){
+                
+                entry.show()
+            }
+            else{
+                entry.hide()
 
-
-       
-        entry.hide()
+            }
+            
+            
 
      })
 
      
      
-     $("#delete").click(function(){
-        $("#task1").hide()
+     $(".btn").click(function(){
+        
+        $(this).parent(".task").remove()
+     })
+
+     $("#cancle").click(function(){
+        $("#task"+counter).remove()
+       
+        
+        $("#entry").hide()
      })
         
 
